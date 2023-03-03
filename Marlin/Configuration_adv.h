@@ -858,9 +858,9 @@
 #endif
 
 // Drive the E axis with two synchronized steppers
-//#define E_DUAL_STEPPER_DRIVERS
+//#define E_DUAL_STEPPER_DRIVERS  //cgi E1
 #if ENABLED(E_DUAL_STEPPER_DRIVERS)
-  //#define INVERT_E1_VS_E0_DIR       // E direction signals are opposites
+  //#define INVERT_E1_VS_E0_DIR       // E direction signals are opposites  //cgi E1
 #endif
 
 // Activate a solenoid on the active extruder with M380. Disable all with M381.
@@ -2105,14 +2105,14 @@
  *
  * See https://marlinfw.org/docs/features/lin_advance.html for full instructions.
  */
-//#define LIN_ADVANCE
+#define LIN_ADVANCE  //cgi LIN
 #if ENABLED(LIN_ADVANCE)
   #if ENABLED(DISTINCT_E_FACTORS)
     #define ADVANCE_K { 0.22 }    // (mm) Compression length per 1mm/s extruder speed, per extruder
   #else
     #define ADVANCE_K 0.22        // (mm) Compression length applying to all extruders
   #endif
-  //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with M900 L.
+  //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with M900 L.  //cgi LIN
   //#define LA_DEBUG              // Print debug information to serial during operation. Disable for production use.
   //#define EXPERIMENTAL_SCURVE   // Allow S-Curve Acceleration to be used with LA.
   //#define ALLOW_LOW_EJERK       // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
@@ -2323,7 +2323,7 @@
 #endif
 
 // Moves (or segments) with fewer steps than this will be joined with the next move
-#define MIN_STEPS_PER_SEGMENT 6
+#define MIN_STEPS_PER_SEGMENT 1  //cgi Volumetric (6)
 
 /**
  * Minimum delay before and after setting the stepper DIR (in ns)
@@ -2512,7 +2512,7 @@
  *
  * Note that M207 / M208 / M209 settings are saved to EEPROM.
  */
-//#define FWRETRACT
+#define FWRETRACT  //cgi Retract
 #if ENABLED(FWRETRACT)
   #define FWRETRACT_AUTORETRACT             // Override slicer retractions
   #if ENABLED(FWRETRACT_AUTORETRACT)
@@ -3640,9 +3640,9 @@
    * M200 D0 to disable, M200 Dn to set a new diameter (and enable volumetric).
    * M200 S0/S1 to disable/enable volumetric extrusion.
    */
-  #define VOLUMETRIC_DEFAULT_ON
+  #define VOLUMETRIC_DEFAULT_ON  //cgi Volumetric
 
-  //#define VOLUMETRIC_EXTRUDER_LIMIT
+  #define VOLUMETRIC_EXTRUDER_LIMIT  //cgi Volumetric
   #if ENABLED(VOLUMETRIC_EXTRUDER_LIMIT)
     /**
      * Default volumetric extrusion limit in cubic mm per second (mm^3/sec).

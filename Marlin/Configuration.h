@@ -619,15 +619,15 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
-#define HEATER_1_MAXTEMP 275
+#define HEATER_0_MAXTEMP 300
+#define HEATER_1_MAXTEMP 300
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP      150
+#define BED_MAXTEMP      100
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -1161,25 +1161,25 @@
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
  */
-//#define DISTINCT_E_FACTORS
+#define DISTINCT_E_FACTORS
 
 /**
  * Default Axis Steps Per Unit (linear=steps/mm, rotational=steps/°)
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 67.0, 67.0, 992.21, 105 }  //cgi
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 67.0, 67.0, 992.21, 105, 105 }  //cgi
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 600, 600, 250, 45 }  //cgi
+#define DEFAULT_MAX_FEEDRATE          { 600, 600, 250, 45, 45 }  //cgi
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50, 50 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -1188,7 +1188,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 500, 10000 }  //cgi  Z200=max
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 500, 10000, 10000 }  //cgi  Z200=max
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1258,7 +1258,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#define S_CURVE_ACCELERATION  //cgi
+//#define S_CURVE_ACCELERATION  //cgi
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1483,7 +1483,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 16.5, 5, -1.2 }  //cgi Level
+#define NOZZLE_TO_PROBE_OFFSET { 16.5, 5, -0.2 }  //cgi Level
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1568,8 +1568,8 @@
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -20
-#define Z_PROBE_OFFSET_RANGE_MAX 20
+#define Z_PROBE_OFFSET_RANGE_MIN -0.5
+#define Z_PROBE_OFFSET_RANGE_MAX 0
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -2069,7 +2069,7 @@
 // @section homing
 
 // The center of the bed is at (X=0, Y=0)
-//#define BED_CENTER_AT_0_0
+// #define BED_CENTER_AT_0_0  //cgi
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
@@ -2093,8 +2093,8 @@
 #define Z_SAFE_HOMING  //cgi Level
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
+  #define Z_SAFE_HOMING_X_POINT 20 // X_CENTER  // X point for Z homing //cgi Level
+  #define Z_SAFE_HOMING_Y_POINT 20 //Y_CENTER  // Y point for Z homing //cgi Level
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
@@ -2239,7 +2239,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-//#define NOZZLE_PARK_FEATURE
+#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
@@ -2287,7 +2287,7 @@
  *   Caveats: The ending Z should be the same as starting Z.
  * Attention: EXPERIMENTAL. G-code arguments may change.
  */
-//#define NOZZLE_CLEAN_FEATURE
+#define NOZZLE_CLEAN_FEATURE
 
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
   // Default number of pattern repetitions
@@ -2298,8 +2298,10 @@
 
   // Specify positions for each tool as { { X, Y, Z }, { X, Y, Z } }
   // Dual hotend system may use { {  -20, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  420, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) }}
-  #define NOZZLE_CLEAN_START_POINT { {  30, 30, (Z_MIN_POS + 1) } }
-  #define NOZZLE_CLEAN_END_POINT   { { 100, 60, (Z_MIN_POS + 1) } }
+  //#define NOZZLE_CLEAN_START_POINT { {  30, 30, (Z_MIN_POS + 1) } }  //cgi Original
+  //#define NOZZLE_CLEAN_END_POINT   { { 100, 60, (Z_MIN_POS + 1) } }  //cgi Original
+  #define NOZZLE_CLEAN_START_POINT { {  33, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  60, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi neu
+  #define NOZZLE_CLEAN_END_POINT   { { 80, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  100, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi Neu
 
   // Circular pattern radius
   #define NOZZLE_CLEAN_CIRCLE_RADIUS 6.5
