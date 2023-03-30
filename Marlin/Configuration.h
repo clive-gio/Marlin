@@ -60,7 +60,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Clive, UBL Leveling)" // Who made the changes.  //cgi
+#define STRING_CONFIG_H_AUTHOR "(Clive, 23-03-30)" // Who made the changes.  //cgi
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -1568,7 +1568,7 @@
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -0.5
+#define Z_PROBE_OFFSET_RANGE_MIN -3
 #define Z_PROBE_OFFSET_RANGE_MAX 0
 
 // Enable the M48 repeatability test to test probe accuracy
@@ -1873,7 +1873,7 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR  //cgi Level
+//#define AUTO_BED_LEVELING_BILINEAR  //cgi Level 2
 #define AUTO_BED_LEVELING_UBL  //cgi Level 1
 //#define MESH_BED_LEVELING
 
@@ -2291,7 +2291,7 @@
 
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
   // Default number of pattern repetitions
-  #define NOZZLE_CLEAN_STROKES  12
+  #define NOZZLE_CLEAN_STROKES  2
 
   // Default number of triangles
   #define NOZZLE_CLEAN_TRIANGLES  3
@@ -2300,8 +2300,11 @@
   // Dual hotend system may use { {  -20, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  420, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) }}
   //#define NOZZLE_CLEAN_START_POINT { {  30, 30, (Z_MIN_POS + 1) } }  //cgi Original
   //#define NOZZLE_CLEAN_END_POINT   { { 100, 60, (Z_MIN_POS + 1) } }  //cgi Original
-  #define NOZZLE_CLEAN_START_POINT { {  33, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  60, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi neu
-  #define NOZZLE_CLEAN_END_POINT   { { 80, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  100, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi Neu
+  #define NOZZLE_CLEAN_START_POINT { { 160, 0, (Z_MIN_POS + 5) },  {  60, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi neu
+  #define NOZZLE_CLEAN_END_POINT   { { 200, 0, (Z_MIN_POS + 5) },  {  100, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi Neu
+//#define NOZZLE_CLEAN_START_POINT { {  33, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  60, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi org
+//#define NOZZLE_CLEAN_END_POINT   { { 80, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  100, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) } }  //cgi org
+
 
   // Circular pattern radius
   #define NOZZLE_CLEAN_CIRCLE_RADIUS 6.5
@@ -2311,7 +2314,7 @@
   #define NOZZLE_CLEAN_CIRCLE_MIDDLE NOZZLE_CLEAN_START_POINT
 
   // Move the nozzle to the initial position after cleaning
-  #define NOZZLE_CLEAN_GOBACK
+  //#define NOZZLE_CLEAN_GOBACK
 
   // For a purge/clean station that's always at the gantry height (thus no Z move)
   //#define NOZZLE_CLEAN_NO_Z
